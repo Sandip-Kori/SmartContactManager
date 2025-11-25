@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="light" lang="en" th:fragment="parent(content,title,script)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title data-th-replace="${title}">Base page</title>
+
+    <!-- 🟢 Tailwind output.css FIRST -->
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
+
+    <!-- 🟣 Flowbite CSS AFTER Tailwind -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" />
+
+    <!--Font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="dark:bg-gray-800 bg-gray-100 dark:text-white">
+    <!--common header-->
+    <div data-th-replace="navbar :: navbar"></div>
+
+    <!--Main content-->
+    <div class="p-4">
+        <section data-th-replace="${content}"></section>
+    </div>
+
+    <!--flowbite content-->
+
+
+    <!--common footer-->
+<!--    <footer class="p-4">-->
+<!--        Footer: Learn code with Durgesh-->
+<!--    </footer>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script data-th-src="@{'/css/js/script.js'}"></script>
+    <th:block data-th-replace="${script}"></th:block>
+</body>
+</html>
