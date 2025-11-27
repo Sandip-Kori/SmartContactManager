@@ -1,15 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Page</title>
+    <title>Login</title>
 </head>
-<body>
-<div id="content">
-    <h1>Well come to login page</h1>
+<body class="bg-gray-100 dark:bg-gray-900" >
+
+<div id="content" class="flex justify-center items-center min-h-screen px-4">
+
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-300 dark:border-gray-700">
+
+        <!-- Messages -->
+        <div data-th-replace="message::messagebox"></div>
+
+        <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-4">
+            Login Here
+        </h2>
+        <p class="text-center text-gray-500 dark:text-gray-400 mb-4">
+            Start managing contacts on cloud ...
+        </p>
+
+        <!-- Error/Logout Messages -->
+        <div class="text-red-600 text-center my-3" th:if="${param.error}">
+            Invalid email or password.
+        </div>
+        <div class="text-green-600 text-center my-3" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+
+        <!-- Login Form -->
+        <form method="post" data-th-action="@{'/authenticate'}" class="space-y-4">
+
+            <!-- Email -->
+            <div>
+                <label class="block text-gray-600 dark:text-gray-300 mb-1">Email</label>
+                <input name="email" type="email" placeholder="Enter your email" required
+                       class="w-full p-2 border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-gray-600 dark:text-gray-300 mb-1">Password</label>
+                <div class="relative">
+                    <input
+                            name="password"
+                            type="password"
+                            id="password"
+                            placeholder="Enter password"
+                            required
+                            class="w-full p-2 border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring focus:ring-blue-500"
+                    />
+                    <span
+                            id="togglePass"
+                            onclick="togglePassword('password', 'togglePass')"
+                            class="absolute right-3 top-2 cursor-pointer text-gray-600 dark:text-gray-300"
+                    >
+            👁️
+        </span>
+                </div>
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="flex gap-3">
+                <button type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md">
+                    Login
+                </button>
+                <button type="reset"
+                        class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-md">
+                    Reset
+                </button>
+            </div>
+
+        </form>
+
+        <!-- OR Divider -->
+        <div class="flex items-center my-4">
+            <hr class="flex-grow border-gray-300 dark:border-gray-600">
+            <span class="mx-2 text-gray-600 dark:text-gray-300">OR</span>
+            <hr class="flex-grow border-gray-300 dark:border-gray-600">
+        </div>
+
+        <!-- Social Logins -->
+        <div class="space-y-3">
+            <a href="/oauth2/authorize/google"
+               class="block w-full text-center py-2 rounded-md bg-red-600 hover:bg-red-700 text-white">
+                Continue with Google
+            </a>
+
+            <a href="/oauth2/authorize/github"
+               class="block w-full text-center py-2 rounded-md bg-gray-800 hover:bg-black text-white">
+                Continue with GitHub
+            </a>
+        </div>
+
+        <!-- Register Redirect -->
+        <p class="text-center text-gray-600 dark:text-gray-300 mt-4">
+            Don't have an account?
+            <a th:href="@{/register}" class="text-blue-600 hover:underline dark:text-blue-400">
+                Register here
+            </a>
+        </p>
+
+    </div>
 </div>
+
 <script>
+    // Toggle Password Visibility
+    function togglePassword(inputId, toggleId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(toggleId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "🙈";
+        } else {
+            input.type = "password";
+            icon.textContent = "👁️";
+        }
+    }
+
     console.log("Login page");
 </script>
 </body>
